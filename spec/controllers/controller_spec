@@ -1,0 +1,86 @@
+Routes: 
+Homepage
+- Link to sign up or log in 
+- If user is already logged in, this should redirect to the account homepage.
+Sign Up
+- loads the sign up page
+- on successful sign up, directs user to their account homepage
+- does not let a user sign up without a username
+- does not let a user sign up without an email 
+- does not let a user sign up without a password
+- does not let a user sign up with a pre-existing email
+- does not let a user sign up with a pre-existing username 
+- password should be secure (and match regex matcher)
+- user should not be able to visit sign up page if logged in
+Log In
+- loads the login page
+- loads the account homepage after successful login
+- does not let the user view login page if already logged in
+- authenticates username/password combination
+- contains a link to forgotten password 
+Forgot Password
+- loads forgot password page with email box for forgotten password
+- does not let user enter an email that does not exist 
+- sends user an email with link to reset page
+Reset Page 
+- contains new password box 
+- overwrites previous password 
+Log Out
+- logs out the user and clears session data 
+- redirects the user to the homepage if the user tries to log out while not logged in 
+Account homepage 
+- loads account homepage if logged in
+- will not load account homepage if user is not logged in
+- shows account homepage for current user only 
+List of entries
+- shows a list of the user's entries if logged in
+- will not show entries if user is not logged in
+View Entry
+- displays a single entry
+- loads view page if logged in
+- does not show entry if user is not logged in 
+- does not allow user to access anyone else's entries  
+Edit Entry 
+- allows user to edit entry if logged in
+- does not allow user to edit entry if not logged in 
+- does not user to edit anyone else's entry
+New Entry
+- allows user to view new entry form if logged in
+- does not allow user to write new entry if logged out 
+- lets user create a new entry 
+- does not let user write an entry without a date, # of weeks, and at least one symptom 
+List of Messages 
+- lets a user view list of messages if logged in 
+- does not let a user view list of messages if not logged in
+Create Messages
+- does not allow user to create message from another username
+- lets user view new message form if logged in 
+- lets user create new message if logged in
+- does not allow user to create a blank message
+- does not let user view new message form if logged out 
+View Message
+- displays a single message
+- does not let a user view a message if not logged in
+Edit Message
+- lets a user edit a message if logged in 
+- does not allow a user to edit a message if not logged in (can I find a way to only show these buttons on your own tweets?)
+- does not allow a user to edit a message that isn't her own
+- lets a user to view edit form if logged in & it's their own message
+- does not let a user edit a form with blank content
+- does not allow a user to edit a message if logged out
+User Profile 
+- lets a user view other user profiles if logged in
+- does not let a user view other profiles if not logged in 
+- displays basic information
+- does not display sensitive information 
+List of Users 
+- lets a user view list of users if logged in 
+- does not let a user view list of messages if not logged in 
+- does not display sensitive information 
+Delete Message 
+- lets a user delete own message if logged in
+- does not let a user delete message if logged in
+- does not let a user delete a message they did not create
+Delete Entry 
+- lets a user delete own entry if logged in 
+- does not let a user delete entry if logged out 
