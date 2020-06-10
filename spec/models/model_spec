@@ -1,0 +1,7 @@
+- User has a username, email, and password
+- User has a secure password
+- Symptom has a name and a scale
+- Entry has a date, temperature, weight, # of weeks, symptom & symptom scale, notes, and to dos
+- Entry can slug date for show page 
+- Can find an entry by its slug 
+- # of weeks can be converted into trimesters & displayed at the top of the page 
