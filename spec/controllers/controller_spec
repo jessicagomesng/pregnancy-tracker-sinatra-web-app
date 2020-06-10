@@ -1,10 +1,10 @@
 Routes: 
 Homepage
-- Link to sign up or log in 
-- If user is already logged in, this should redirect to the account homepage.
+[X] Link to sign up or log in 
+[X] If user is already logged in, this should redirect to the account homepage.
 Sign Up
-- loads the sign up page
-- on successful sign up, directs user to their account homepage
+[X] loads the sign up page
+[X] on successful sign up, directs user to their account homepage
 - does not let a user sign up without a username
 - does not let a user sign up without an email 
 - does not let a user sign up without a password
@@ -84,3 +84,32 @@ Delete Message
 Delete Entry 
 - lets a user delete own entry if logged in 
 - does not let a user delete entry if logged out 
+
+Create Own Symptom 
+- There should be prewritten symptoms that a user can select from
+- Cold
+- Fever
+- Nausea 
+- Cramps
+- Fatigue
+- Headache 
+- Acne
+- Dizziness
+- Tinnitus 
+- Bitter taste 
+- Breast pain
+- Backache
+- Bloating
+- Stiff
+- Frequent urination
+- Increased appetite
+- Inappetance 
+- Indigestion 
+- Vomit
+- Constipation
+- Diarrhea 
+- Gas
+- Stomach ache 
+- Heightened sense of smell 
+A user can create a new symptom to be added 
+My database should add this info automatically 
