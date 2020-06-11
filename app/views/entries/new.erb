@@ -1,0 +1,36 @@
+<h2>New Entry:</h2>
+
+<form method="POST" action="/entries"> 
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="entry[date]" required><br><br>
+
+    <label for="temperature">Temperature in &deg;C:</label> &#9432; <!-- make a tooltip here -->
+    <input type="number" step="0.01" placeholder="0.00" name="entry[temperature]"><br><br> 
+
+    <label for="weight">Weight in kg:</label>
+    <input type="number" step="0.1" placeholder="0.0" name="entry[weight]"><br><br>
+
+    <label for="weeks">Number of weeks:</label> &#9432; <!-- make a tooltip here -->
+    <input type="number" min="1" max="42" name="entry[weeks]" required><br><br> 
+
+    <label for="symptoms">Choose a symptom from the list below, or create your own:</label><br><br>
+    <% @symptoms.each do |symptom| %>
+        <input type="checkbox" id="symptom_<%= symptom.id %>" name="entry[symptom_ids][]" value="<%= symptom.id %>"><%= symptom.name %><br>
+    <% end %> 
+
+    <label for="new_symptom_name">New Symptom:</label>
+    <input type="text" id="new_symptom_name" name="symptom[name]">
+
+    <label for="new_symptom_scale">Scale/severity from 0-10:</label>
+    <input type="range" id="new_symptom_scale" name="symptom[scale]" min="0" max="10"><br><br>
+    
+    <label for="notes">Notes:</label> 
+    <textarea id="notes" name="entry[notes]" rows="4" cols="50">You can write about any doctor's visits, exercise performed, food eaten, or anything else you want to take note of here!</textarea><br><br> 
+
+    <label for="to_dos">To Do:</label> 
+    <textarea id="to_dos" name="entry[to_dos]" rows="4" cols="50">You can write about any tasks you need to get done here.</textarea><br><br>  
+
+    <input type="submit" value="Create New Entry">
+</form> 
+<br> 
+<a href="/account">Go Back</a> 

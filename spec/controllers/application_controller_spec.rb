@@ -31,8 +31,8 @@ describe ApplicationController do
 
         it 'signup directs user to account homepage' do 
             params = {
-                :username => "ilikechocolate"
-                :email => "chocolate@aol.com"
+                :username => "ilikechocolate",
+                :email => "chocolate@aol.com",
                 :password => "EasterEggs123"
             }
 
@@ -43,13 +43,13 @@ describe ApplicationController do
         it 'does not let a user sign up without a username' do 
             params = {
                 :username => "",
-                :email => "chocolate@aol.com"
+                :email => "chocolate@aol.com",
                 :password => "EasterEggs123"
               }
 
             post '/signup', params
             expect(last_response.location).to include('/signup')
         end
-        
+    end 
 
 end 
