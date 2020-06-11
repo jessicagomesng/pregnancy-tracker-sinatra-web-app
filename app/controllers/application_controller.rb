@@ -8,7 +8,11 @@ class ApplicationController < Sinatra::Base
 
     get '/' do 
         #add condition so this cannot be accessed if user is logged in
-        erb :index
+        if logged_in? 
+            redirect '/account'
+        else 
+            erb :index
+        end 
     end 
 
     helpers do 

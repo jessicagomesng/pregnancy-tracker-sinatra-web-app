@@ -14,6 +14,7 @@ class EntriesController < ApplicationController
     end 
 
     post '/entries' do 
+        binding.pry 
         #lets user create a new entry 
     end 
 end 
