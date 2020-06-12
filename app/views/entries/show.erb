@@ -1,0 +1,22 @@
+<h2>Entry On <%= @entry.date %></h2> <!-- display in a more user-friendly format --> 
+
+<h4>Number of weeks:</h4>
+<%= @entry.weeks %> weeks 
+
+<h4>Temperature:</h4>
+<%= @entry.temperature %>
+
+<h4>Weight:</h4>
+<%= @entry.weight %> 
+
+<h4>Symptoms:</h4>
+<ul>
+<% @entry.symptoms.each do |symptom| %>
+    <li><%= symptom.name.capitalize %></li>
+<% end %></ul> 
+
+<h4>Notes:</h4> 
+<%= @entry.notes %>
+
+<h4>To Do:</h4>
+<%= @entry.to_dos%>

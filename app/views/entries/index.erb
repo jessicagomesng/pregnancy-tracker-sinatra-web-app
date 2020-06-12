@@ -1,0 +1,9 @@
+<h2>Your Entries:</h2>
+
+<ul> 
+<% @entries.each do |entry| %>
+    <li><a href="entries/<%= entry.date_slug %>"><%= entry.date %></a></li> 
+<% end %> 
+</ul> 
+
+<a href="/account">Account</a>

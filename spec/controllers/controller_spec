@@ -50,6 +50,7 @@ New Entry
 - lets user create a new entry 
 - does not let user write an entry without a date, # of weeks
 - don't let user write a symptom that already exists
+- redirects to entry page after completion 
 Delete Entry 
 - lets a user delete own entry if logged in 
 - does not let a user delete entry if logged out 
