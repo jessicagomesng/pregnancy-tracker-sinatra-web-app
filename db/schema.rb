@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 5) do
     t.string "to_dos"
   end
 
-  create_table "entries_symptom", force: :cascade do |t|
+  create_table "entries_symptoms", force: :cascade do |t|
     t.integer "symptom_id"
     t.integer "entry_id"
   end

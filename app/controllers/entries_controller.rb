@@ -1,5 +1,8 @@
 class EntriesController < ApplicationController 
     get '/entries' do 
+        @user = User.find_by_id(session[:user_id])
+        @entries = User.entries
+
     end 
 
     get '/entries/new' do 
