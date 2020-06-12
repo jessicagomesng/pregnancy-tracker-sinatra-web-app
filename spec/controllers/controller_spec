@@ -48,7 +48,12 @@ New Entry
 - allows user to view new entry form if logged in
 - does not allow user to write new entry if logged out 
 - lets user create a new entry 
-- does not let user write an entry without a date, # of weeks, and at least one symptom 
+- does not let user write an entry without a date, # of weeks
+- don't let user write a symptom that already exists
+Delete Entry 
+- lets a user delete own entry if logged in 
+- does not let a user delete entry if logged out 
+
 List of Messages 
 - lets a user view list of messages if logged in 
 - does not let a user view list of messages if not logged in
@@ -81,9 +86,6 @@ Delete Message
 - lets a user delete own message if logged in
 - does not let a user delete message if logged in
 - does not let a user delete a message they did not create
-Delete Entry 
-- lets a user delete own entry if logged in 
-- does not let a user delete entry if logged out 
 
 Create Own Symptom 
 - There should be prewritten symptoms that a user can select from
@@ -113,3 +115,6 @@ Create Own Symptom
 - Heightened sense of smell 
 A user can create a new symptom to be added 
 My database should add this info automatically 
+
+Add flash messages 
+Add method override to patch metods 

@@ -2,6 +2,33 @@
 <html>
   <head>
     <title>Pregnancy e-Tracker</title>
+    <!-- <style> 
+      input[type="range"] {
+        visibility:hidden;
+      }
+
+      input[type="checkbox"]:checked + input[type="range"] {
+        visibility:visible;
+      }
+    </style> -->
+
+    <script type="text/javascript">
+    
+      function dynInput(checkbox) {
+        if (checkbox.checked) { 
+          var input = document.createElement("input");
+          input.type = "range";
+          input.name = "entry[symptoms][][scale]";
+          var label = document.createElement("label");
+          label.id = checkbox.name
+          label.innerHTML = "Scale"; 
+          label.appendChild(input) 
+          document.getElementById("insertinputs").appendChild(label);
+        } else {  
+          document.getElementById(checkbox.name).remove();
+        }
+      } 
+    </script>
   </head>
   <body>
 

@@ -15,22 +15,21 @@
 
     <label for="symptoms">Choose a symptom from the list below, or create your own:</label><br><br>
     <% @symptoms.each do |symptom| %>
-        <input type="checkbox" id="symptom_<%= symptom.id %>" name="entry[symptoms][][symptom_id]" value="<%= symptom.id %>"><%= symptom.name.capitalize %>
-        <input type="range" name="entry[symptoms][][scale]" min="0" max="10" value="nil"><br> 
-        <!-- edit this so this is only passed to params if the symptom is checked. --> 
+        <!-- check this over...the onclick is not appearing where I want it to. --> 
+        <input type="checkbox" id="symptom_<%= symptom.id %>" name="entry[symptoms][][symptom_id]" value="<%= symptom.id %>" onclick="dynInput(this);"><%= symptom.name.capitalize %><p id="insertinputs"></p></input>
     <% end %> 
 
     <label for="new_symptom_name">New Symptom:</label>
-    <input type="text" id="new_symptom_name" name="symptom[name]">
+    <input type="text" id="new_symptom_name" name="new_symptom[name]">
 
     <label for="new_symptom_scale">Scale/severity from 0-10:</label>
-    <input type="range" id="new_symptom_scale" name="symptom[scale]" min="0" max="10"><br><br>
+    <input type="range" id="new_symptom_scale" name="new_symptom[scale]" min="0" max="10"><br><br>
     
     <label for="notes">Notes:</label> 
-    <textarea id="notes" name="entry[notes]" rows="4" cols="50">You can write about any doctor's visits, exercise performed, food eaten, or anything else you want to take note of here!</textarea><br><br> 
+    <textarea id="notes" name="entry[notes]" rows="4" cols="50" placeholder="You can write about any doctor's visits, exercise performed, food eaten, or anything else you want to take note of here!"></textarea><br><br> 
 
     <label for="to_dos">To Do:</label> 
-    <textarea id="to_dos" name="entry[to_dos]" rows="4" cols="50">You can write about any tasks you need to get done here.</textarea><br><br>  
+    <textarea id="to_dos" name="entry[to_dos]" rows="4" cols="50" placeholder="You can write about any tasks you need to get done here."></textarea><br><br>  
 
     <input type="submit" value="Create New Entry">
 </form> 
