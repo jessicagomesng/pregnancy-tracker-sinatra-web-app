@@ -1,10 +1,10 @@
-<h2>Welcome to your account, <%= @user.username %>!</h2>
+<h2>Welcome to your account, <%= current_user.username %>!</h2>
 
 <h4>What would you like to do next?</h4>
     <ol>
     <li><a href="/entries/new">Write a New Entry</a></li>
     <li><a href="/entries">View Previous Entries</a></li>
-    <li>Visit Messageboard</li> 
+    <li><a href="/messages">Visit Messageboard</a></li> 
     <li><a href="/logout">Log Out</a></li>
     </ol>
 

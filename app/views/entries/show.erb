@@ -19,4 +19,8 @@
 <%= @entry.notes %>
 
 <h4>To Do:</h4>
-<%= @entry.to_dos%>
+<%= @entry.to_dos%><br>
+
+<br>
+<a href="/entries/<%= @entry.id %>/edit">Edit or Delete Entry</a><br><br>
+<a href="/entries">List of Entries</a> or <a href="/account">Account</a>

@@ -1,41 +1,44 @@
 class EntriesController < ApplicationController 
     get '/entries' do 
-        if logged_in? 
-            @user = User.find_by_id(session[:user_id])
-            @entries = @user.entries
+        if logged_in?
+            @entries = current_user.entries 
 
             erb :'/entries/index'
         else 
+            #flash message -- you must be logged in to do that!
             redirect '/login'
         end 
     end 
 
     get '/entries/new' do 
-        if logged_in? 
+        if logged_in?
             @symptoms = Symptom.all 
             erb :'/entries/new'
-            #does not let user write an entry without a date, # of weeks, and at least one symptom 
         else 
             redirect '/login'
-            #flash message -- you must be logged in to do that 
-        end
+        end 
     end 
 
-    post '/entries' do 
-        @user = User.find_by_id(session[:user_id])
-
-        if params[:entry][:date] == "" || params[:entry][:weeks] == ""
+    post '/entries' do
+        if params[:entry][:date] == "" || params[:entry][:weeks] == "" 
             redirect '/entries/new'
-            #flash message - these fields cannot be left lbank
+            #flash mesage -- these fields cannot be left blank
         else 
-            @entry = Entry.new
+            @entry = Entry.new 
+
+            if params["new_symptom"] != ""
+                if Symptom.name_array.include?(params["new_symptom"].downcase) 
+                    #flash message - sorry, you cannot add an existing symptom to the database. Please select the symptom from the dropdown & try again.
+                else 
+                    @entry.symptoms << Symptom.create(:name => params["new_symptom"])
+                end 
+            end 
 
             params["entry"].each do |key, value|
-                if !value.nil?
+                if value != ""
                     if key == "symptom_ids"
                         value.each do |symptom_id|
-                            symptom = Symptom.find_by_id(symptom_id)
-                            @entry.symptoms << symptom
+                            @entry.symptoms << Symptom.find_by_id(symptom_id)
                         end 
                     else 
                         @entry[key] = value 
@@ -44,24 +47,80 @@ class EntriesController < ApplicationController
             end 
 
             @entry.save 
-            @user.entries << @entry 
-            
-            redirect "/entries/#{@entry.date_slug}"
+            current_user.entries << @entry 
+
+            redirect "/entries/#{@entry.id}"
         end 
     end 
 
-    get '/entries/:slug' do 
-        if logged_in? 
-            @user = User.find_by_id(session[:user_id])
-            @entry = @user.entries.find_by_date_slug(params[:slug])
+    get '/entries/:id' do 
+        @entry = Entry.find_by_id(params[:id])
 
+        if logged_in? && @entry && current_user.id == @entry.user_id 
             erb :'/entries/show'
         else 
             redirect '/login'
         end 
     end 
 
-    #edit 
-    #delete
-    #list of entries
+    get '/entries/:id/edit' do 
+        @symptoms = Symptom.all 
+        @entry = Entry.find_by_id(params[:id])
+
+        if logged_in? && @entry && current_user.id == @entry.user_id 
+            erb :'/entries/edit'
+        else 
+            redirect '/login'
+        end 
+    end 
+
+    patch '/entries/:id' do 
+        @entry = Entry.find_by_id(params[:id])
+
+        if params[:entry][:date] == "" || params[:entry][:weeks] == ""
+            redirect "/entries/#{@entry.id}/edit"
+            #flash message -- these fields cannot be left blank
+        else 
+            params["entry"].each do |key, value|
+                if value != ""
+                    if key == "symptom_ids"
+                        @entry.symptoms.clear 
+                        
+                        value.each do |symptom_id|
+                            @entry.symptoms << Symptom.find_by_id(symptom_id)
+                        end 
+                    else 
+                        @entry[key] = value 
+                    end
+                end
+            end 
+
+            if params["new_symptom"] != "" 
+                if Symptom.name_array.include?(params["new_symptom"].downcase)
+                    #flash message -- sorry, you cannot add an existing symptom to the db
+                else 
+                    @entry.symptoms << Symptom.create(:name => params["new_symptom"])
+                end 
+            end 
+            
+            @entry.save 
+
+            redirect "/entries/#{@entry.id}"
+        end 
+    end 
+
+    delete '/entries/:id' do 
+        @entry = Entry.find_by_id(params[:id])
+        
+        if logged_in? && @entry.user_id == session[:user_id]
+            @entry.delete
+            redirect "/entries"
+            #flash message - entry deleted 
+        else 
+            redirect '/login'
+        end 
+    end 
+
+
+
 end 

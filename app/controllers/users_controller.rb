@@ -2,7 +2,7 @@ class UsersController < ApplicationController
     get '/login' do 
         #contains a link to forgotten password
         if logged_in?
-            redirect '/account'
+            redirect "/account"
         else 
             erb :'/users/login'
         end 
@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 
         if @user && @user.authenticate(params[:password])
             session[:user_id] = @user.id 
-            redirect '/account'
+            redirect "/account"
         else 
             #raise flash message, sign up link
             redirect '/login'
@@ -21,32 +21,31 @@ class UsersController < ApplicationController
     end 
 
     get '/signup' do 
-        erb :'/users/signup'
-    end 
-
-    post '/signup' do
-        if logged_in? 
-            redirect '/account'
+        if logged_in?
+            redirect "/account"
         else 
-            if params[:email] == "" || params[:password] == "" || params[:username] == ""
-                redirect '/signup'
-                #flash message about failure 
-            else 
-                if all_usernames.include?(params[:username]) || all_emails.include?(params[:email])
-                    redirect '/signup'
-                    #flash message about failure
-                else 
-                    @user = User.create(:username => params[:username], :password => params[:password], :email => params[:email])
-                    session[:user_id] = @user.id  
-                    redirect '/account'
-                end 
-            end 
+            erb :'/users/signup'
         end 
     end 
 
+    post '/signup' do
+        if params[:email] == "" || params[:password] == "" || params[:username] == ""
+            redirect '/signup'
+            #flash message about failure 
+        else 
+            if all_usernames.include?(params[:username]) || all_emails.include?(params[:email])
+                redirect '/signup'
+                #flash message about failure
+            else 
+                @user = User.create(:username => params[:username], :password => params[:password], :email => params[:email])
+                session[:user_id] = @user.id  
+                redirect "/account"
+            end 
+        end  
+    end 
+
     get '/account' do 
-        if logged_in? 
-            @user = User.find_by_id(session[:user_id])
+        if logged_in?
             erb :'/users/account'
         else 
             redirect '/'

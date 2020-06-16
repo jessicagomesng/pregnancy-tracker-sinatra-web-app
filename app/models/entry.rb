@@ -3,8 +3,6 @@ class Entry < ActiveRecord::Base
     has_many :entries_symptoms
     has_many :symptoms, through: :entries_symptoms
 
-    #need to slugify date
-
     def date_slug
         self.date.to_s
     end 

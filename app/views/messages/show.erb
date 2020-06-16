@@ -1,0 +1,11 @@
+Message by <%= @message.user.username %><br>
+Posted on <%= @message.date_posted %><br>
+<%= @message.content %> 
+
+<br> 
+
+<% if @message.user == current_user %>
+<a href="/messages/<%= @message.id %>/edit">Edit or Delete</a> 
+<% end %><br> 
+
+<a href="/account">Account</a> or <a href="/messages">Messageboard</a>
