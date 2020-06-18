@@ -5,19 +5,20 @@ Homepage
 Sign Up
 [X] loads the sign up page
 [X] on successful sign up, directs user to their account homepage
-- does not let a user sign up without a username
-- does not let a user sign up without an email 
-- does not let a user sign up without a password
+[X] does not let a user sign up without a username
+[X] does not let a user sign up without an email 
+[X] does not let a user sign up without a password
 - does not let a user sign up with a pre-existing email
 - does not let a user sign up with a pre-existing username 
 - password should be secure (and match regex matcher)
-- user should not be able to visit sign up page if logged in
+[X] user should not be able to visit sign up page if logged in
 Log In
-- loads the login page
-- loads the account homepage after successful login
-- does not let the user view login page if already logged in
-- authenticates username/password combination
+[X] loads the login page
+[X] loads the account homepage after successful login
+[X] does not let the user view login page if already logged in
+[X] authenticates username/password combination
 - contains a link to forgotten password 
+- does not let a user log in without a username/password
 Forgot Password
 - loads forgot password page with email box for forgotten password
 - does not let user enter an email that does not exist 
