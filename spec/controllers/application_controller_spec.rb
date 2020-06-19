@@ -518,4 +518,19 @@ describe ApplicationController do
         end 
     end 
 
+    describe "Message Index" do 
+    end 
+
+    describe "Create Message" do 
+    end 
+
+    describe "Show Message" do 
+    end 
+
+    describe "Edit Message" do 
+    end 
+
+    describe "Delete Message" do 
+    end 
+
 end 

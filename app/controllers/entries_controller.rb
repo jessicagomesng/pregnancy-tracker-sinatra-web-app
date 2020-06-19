@@ -1,4 +1,6 @@
 class EntriesController < ApplicationController 
+    use Rack::Flash 
+
     get '/entries' do 
         if logged_in?
             @entries = current_user.entries 
@@ -20,15 +22,15 @@ class EntriesController < ApplicationController
     end 
 
     post '/entries' do
-        if params[:entry][:date] == "" || params[:entry][:weeks] == "" 
+        if params[:entry][:date] == "" || params[:entry][:weeks] == ""
+            flash[:message] = "You must include a date and how many weeks you are!" 
             redirect '/entries/new'
-            #flash mesage -- these fields cannot be left blank
         else 
             @entry = Entry.new 
 
             if params["new_symptom"] != ""
                 if Symptom.name_array.include?(params["new_symptom"].downcase) 
-                    #flash message - sorry, you cannot add an existing symptom to the database. Please select the symptom from the dropdown & try again.
+                    flash[:message] = "Sorry, you cannot add an existing symptom to the database. To add that symptom, simply edit your entry and select the appropriate symptom."
                 else 
                     @entry.symptoms << Symptom.create(:name => params["new_symptom"])
                 end 
