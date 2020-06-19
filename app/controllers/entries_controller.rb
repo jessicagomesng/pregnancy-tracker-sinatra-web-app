@@ -19,6 +19,7 @@ class EntriesController < ApplicationController
             @symptoms = Symptom.all 
             erb :'/entries/new'
         else 
+            flash[:notice] = "You must be logged in to do that!"
             redirect '/login'
         end 
     end 
@@ -32,7 +33,7 @@ class EntriesController < ApplicationController
 
             if params["new_symptom"] != ""
                 if Symptom.name_array.include?(params["new_symptom"].downcase) 
-                    flash[:error] = "Sorry, you cannot add an existing symptom to the database. To add that symptom, simply edit your entry and select the appropriate symptom."
+                    flash[:notice] = "Sorry, you cannot add an existing symptom to the database. To add that symptom, simply edit your entry and select the appropriate symptom."
                 else 
                     @entry.symptoms << Symptom.create(:name => params["new_symptom"])
                 end 
@@ -61,9 +62,15 @@ class EntriesController < ApplicationController
     get '/entries/:id' do 
         @entry = Entry.find_by_id(params[:id])
 
-        if logged_in? && @entry && current_user.id == @entry.user_id 
-            erb :'/entries/show'
+        if logged_in?
+            if @entry && current_user.id == @entry.user_id 
+                erb :'/entries/show'
+            else 
+                flash[:error] = "Sorry, you do not have permissions to view that entry."
+                redirect '/account'
+            end 
         else 
+            flash[:notice] = "You must be logged in to do that!"
             redirect '/login'
         end 
     end 
@@ -72,9 +79,15 @@ class EntriesController < ApplicationController
         @symptoms = Symptom.all 
         @entry = Entry.find_by_id(params[:id])
 
-        if logged_in? && @entry && current_user.id == @entry.user_id 
-            erb :'/entries/edit'
+        if logged_in?
+            if @entry && current_user.id == @entry.user_id 
+                erb :'/entries/edit'
+            else 
+                flash[:error] = "Sorry, you do not have permissions to do that."
+                redirect '/account'
+            end 
         else 
+            flash[:notice] = "You must be logged in to do that!"
             redirect '/login'
         end 
     end 
@@ -83,8 +96,8 @@ class EntriesController < ApplicationController
         @entry = Entry.find_by_id(params[:id])
 
         if params[:entry][:date] == "" || params[:entry][:weeks] == ""
+            flash[:error] = "You must include a date and how many weeks you are!" 
             redirect "/entries/#{@entry.id}/edit"
-            #flash message -- these fields cannot be left blank
         else 
             params["entry"].each do |key, value|
                 if value != ""
@@ -102,7 +115,7 @@ class EntriesController < ApplicationController
 
             if params["new_symptom"] != "" 
                 if Symptom.name_array.include?(params["new_symptom"].downcase)
-                    #flash message -- sorry, you cannot add an existing symptom to the db
+                    flash[:notice] = "Sorry, you cannot add an existing symptom to the database. To add that symptom, simply edit your entry and select the appropriate symptom."
                 else 
                     @entry.symptoms << Symptom.create(:name => params["new_symptom"])
                 end 
@@ -110,6 +123,7 @@ class EntriesController < ApplicationController
             
             @entry.save 
 
+            flash[:success] = "Entry edited."
             redirect "/entries/#{@entry.id}"
         end 
     end 
@@ -119,13 +133,12 @@ class EntriesController < ApplicationController
         
         if logged_in? && @entry.user_id == session[:user_id]
             @entry.delete
+            flash[:success] = "Entry deleted."
             redirect "/entries"
-            #flash message - entry deleted 
         else 
             redirect '/login'
         end 
     end 
-
 
 
 end 

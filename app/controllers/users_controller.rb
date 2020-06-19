@@ -1,4 +1,33 @@
+require 'rack-flash'
+
 class UsersController < ApplicationController 
+    use Rack::Flash, :sweep => true
+
+    get '/signup' do 
+        if logged_in?
+            redirect "/account"
+        else 
+            erb :'/users/signup'
+        end 
+    end 
+
+    post '/signup' do
+        if params[:email] == "" || params[:password] == "" || params[:username] == ""
+            flash[:error] = "You nust include a username, email, and password." 
+            redirect '/signup'
+        else 
+            if all_usernames.include?(params[:username]) || all_emails.include?(params[:email])
+                flash[:error] = "Sorry, that username and/or email already exists in our system. Please try again." 
+                redirect '/signup'
+            else 
+                @user = User.create(:username => params[:username], :password => params[:password], :email => params[:email])
+                session[:user_id] = @user.id  
+                flash[:success] = "User created." 
+                redirect "/account"
+            end 
+        end  
+    end 
+    
     get '/login' do 
         #contains a link to forgotten password
         if logged_in?
@@ -15,39 +44,16 @@ class UsersController < ApplicationController
             session[:user_id] = @user.id 
             redirect "/account"
         else 
-            #raise flash message, sign up link
+            flash[:error] = "Something went wrong. Please try again." 
             redirect '/login'
         end 
-    end 
-
-    get '/signup' do 
-        if logged_in?
-            redirect "/account"
-        else 
-            erb :'/users/signup'
-        end 
-    end 
-
-    post '/signup' do
-        if params[:email] == "" || params[:password] == "" || params[:username] == ""
-            redirect '/signup'
-            #flash message about failure 
-        else 
-            if all_usernames.include?(params[:username]) || all_emails.include?(params[:email])
-                redirect '/signup'
-                #flash message about failure
-            else 
-                @user = User.create(:username => params[:username], :password => params[:password], :email => params[:email])
-                session[:user_id] = @user.id  
-                redirect "/account"
-            end 
-        end  
     end 
 
     get '/account' do 
         if logged_in?
             erb :'/users/account'
         else 
+            flash[:notice] = "You must be logged in to do that!"
             redirect '/'
         end 
     end 
@@ -55,9 +61,10 @@ class UsersController < ApplicationController
     get '/logout' do 
         if logged_in? 
             session.clear 
+            flash[:success] = "Logout successful."
             redirect '/login'
-            #logout successful flash message
         else 
+            flash[:notice] = "You must be logged in to do that!"
             redirect '/'
         end 
     end 
