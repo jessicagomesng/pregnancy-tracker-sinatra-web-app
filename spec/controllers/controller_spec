@@ -18,7 +18,7 @@ Log In
 [X] does not let the user view login page if already logged in
 [X] authenticates username/password combination
 - contains a link to forgotten password 
-- does not let a user log in without a username/password
+[X] does not let a user log in without a username/password
 Forgot Password
 - loads forgot password page with email box for forgotten password
 - does not let user enter an email that does not exist 
@@ -27,20 +27,20 @@ Reset Page
 - contains new password box 
 - overwrites previous password 
 Log Out
-- logs out the user and clears session data 
-- redirects the user to the homepage if the user tries to log out while not logged in 
+[X] logs out the user and clears session data 
+[X] redirects the user to the homepage if the user tries to log out while not logged in 
 Account homepage 
 - loads account homepage if logged in
-- will not load account homepage if user is not logged in
-- shows account homepage for current user only 
+[X] will not load account homepage if user is not logged in
+[X] shows account homepage for current user only 
 List of entries
-- shows a list of the user's entries if logged in
-- will not show entries if user is not logged in
+[X] shows a list of the user's entries if logged in
+[X] will not show entries if user is not logged in
 View Entry
-- displays a single entry
-- loads view page if logged in
-- does not show entry if user is not logged in 
-- does not allow user to access anyone else's entries  
+[X] displays a single entry
+[X] loads view page if logged in
+[X] does not show entry if user is not logged in 
+[X] does not allow user to access anyone else's entries  
 Edit Entry 
 - allows user to edit entry if logged in
 - does not allow user to edit entry if not logged in 
