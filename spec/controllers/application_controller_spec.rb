@@ -271,8 +271,106 @@ describe ApplicationController do
         end 
         
         context 'logged out' do 
-            it 'does not display entry if user is not logged in' do 
+            it 'does not display entry' do 
                 get '/entries/1'
+                expect(last_response.location).to include('/login')
+            end 
+        end 
+    end
+    
+    describe "New Entry" do 
+        context 'logged in' do 
+            it 'displays new entry form' do 
+                user = User.create(:username => "hotdoggy", :email => "sausagedogs@hotmail.com", :password => "ImaPup45")
+               
+                visit '/login'
+                fill_in(:username, :with => "hotdoggy") 
+                fill_in(:password, :with => "ImaPup45")
+                click_button 'Log In'
+
+                visit "/entries/new"
+                expect(page.status_code).to eq(200)
+                expect(page.body).to include("New Entry:")
+            end 
+
+            it 'lets a user create a new entry' do 
+                user = User.create(:username => "hotdoggy", :email => "sausagedogs@hotmail.com", :password => "ImaPup45")
+
+                visit '/login'
+                fill_in(:username, :with => "hotdoggy") 
+                fill_in(:password, :with => "ImaPup45")
+                click_button 'Log In'
+
+                visit '/entries/new'
+                fill_in(:weeks, :with => 4)
+                fill_in(:date, :with => 2020-16-04)
+                fill_in(:notes, :with => "This is my new entry")
+                click_button "Create New Entry"
+
+                entry = Entry.find_by(:notes => "This is my new entry")
+                expect(entry).to be_instance_of(Entry)
+                expect(entry.user_id).to eq(user.id)
+                expect(page.status_code).to eq(200)
+            end 
+
+            it 'does not let a user create an entry without a date' do 
+                user = User.create(:username => "hotdoggy", :email => "sausagedogs@hotmail.com", :password => "ImaPup45")
+
+                visit '/login'
+                fill_in(:username, :with => "hotdoggy") 
+                fill_in(:password, :with => "ImaPup45")
+                click_button 'Log In'
+
+                visit '/entries/new'
+                fill_in(:weeks, :with => 5)
+                fill_in(:notes, :with => "This is my new entry")
+                click_button "Create New Entry"
+
+                expect(Entry.find_by(:notes =>"This is my new entry")).to be(nil)
+                expect(page.current_path).to eq("/entries/new")
+            end 
+
+            it 'does not let a user create an entry without weeks' do 
+                user = User.create(:username => "hotdoggy", :email => "sausagedogs@hotmail.com", :password => "ImaPup45")
+
+                visit '/login'
+                fill_in(:username, :with => "hotdoggy") 
+                fill_in(:password, :with => "ImaPup45")
+                click_button 'Log In'
+
+                visit '/entries/new'
+                fill_in(:date, :with => 2020-16-04)
+                fill_in(:notes, :with => "This is my new entry")
+                click_button "Create New Entry"
+
+                expect(Entry.find_by(:notes =>"This is my new entry")).to be(nil)
+                expect(page.current_path).to eq("/entries/new")
+            end 
+
+            it 'does not let a user create a symptom that already exists' do 
+                user = User.create(:username => "hotdoggy", :email => "sausagedogs@hotmail.com", :password => "ImaPup45")
+
+                visit '/login'
+                fill_in(:username, :with => "hotdoggy") 
+                fill_in(:password, :with => "ImaPup45")
+                click_button 'Log In'
+
+                visit '/entries/new'
+                fill_in(:date, :with => 2020-16-04)
+                fill_in(:weeks, :with => 4)
+                fill_in(:new_symptom, :with => "Gas")
+                fill_in(:notes, :with => "Hi there! I'm pregnant!")
+                click_button "Create New Entry"
+
+                entry = Entry.find_by(:notes => "Hi there! I'm pregnant!")
+                # expect(Symptom.find_by(: =>"This is my new entry")).to be(nil)
+                expect(page.current_path).to eq("/entries/#{entry.id}")
+            end 
+        end 
+
+        context 'logged out' do
+            it 'does not let user view new entry form' do 
+                get '/entries/new' 
                 expect(last_response.location).to include('/login')
             end 
         end 
@@ -299,7 +397,7 @@ describe ApplicationController do
                 entry1 = Entry.create(:date => 2020-14-06, :weeks => 5, :notes => "testing", :user_id => user1.id)
                 
                 user2 = User.create(:username => "lovemyweasel", :email => "scraphoundsunite@gmail.com", :password => "PeetboBeet123")
-                entry1 = Entry.create(:date => 2020-19-06, :weeks => 3, :notes => "my mom is pregnant! woof!", :user_id => user2.id)
+                entry2 = Entry.create(:date => 2020-19-06, :weeks => 3, :notes => "my mom is pregnant! woof!", :user_id => user2.id)
     
                 params = {
                     :username => "hotdoggy",
@@ -307,7 +405,7 @@ describe ApplicationController do
                 }
 
                 post "/login", params  
-                get "/entries/2/edit"
+                get "/entries/#{entry2.id}/edit"
                 expect(last_response.status).to eq(302)
                 follow_redirect!
                 expect(last_response.location).to include("/account")
@@ -332,9 +430,38 @@ describe ApplicationController do
             end 
 
             it 'does not let a user edit an entry without a date' do 
+                user = User.create(:username => "hotdoggy", :email => "sausagedogs@hotmail.com", :password => "ImaPup45")
+                entry = Entry.create(:date => 2020-14-06, :weeks => 5, :notes => "testing this bad boy out", :user_id => user.id)
+
+                visit '/login'
+                fill_in(:username, :with => "hotdoggy") 
+                fill_in(:password, :with => "ImaPup45")
+                click_button 'Log In'
+                visit "/entries/#{entry.id}/edit"
+
+                fill_in(:date, with: "")
+                fill_in(:notes, with: "successfully edited")
+                click_button "Edit Entry"
+                
+                expect(Entry.find_by(:notes =>"successfully edited")).to be(nil)
+                expect(page.current_path).to eq("/entries/#{entry.id}/edit")
             end 
 
-            it 'does not let a user edit an entry without a week' do 
+            it 'does not let a user edit an entry without weeks' do 
+                user = User.create(:username => "hotdoggy", :email => "sausagedogs@hotmail.com", :password => "ImaPup45")
+                entry = Entry.create(:date => 2020-14-06, :weeks => 5, :notes => "testing this bad boy out", :user_id => user.id)
+
+                visit '/login'
+                fill_in(:username, :with => "hotdoggy") 
+                fill_in(:password, :with => "ImaPup45")
+                click_button 'Log In'
+                visit "/entries/#{entry.id}/edit"
+                fill_in(:weeks, with: "")
+                fill_in(:notes, with: "successfully edited")
+                click_button "Edit Entry"
+                
+                expect(Entry.find_by(:notes =>"successfully edited")).to be(nil)
+                expect(page.current_path).to eq("/entries/#{entry.id}/edit")
             end 
         end 
 
@@ -342,6 +469,51 @@ describe ApplicationController do
             it 'does not allow user to edit entry if not logged in' do 
                 get '/entries/1/edit'
                 expect(last_response.location).to include('/login')
+            end 
+        end 
+    end 
+
+    describe "Delete Entry" do 
+        context "logged in" do 
+            it 'lets a user delete own entry' do 
+                user = User.create(:username => "hotdoggy", :email => "sausagedogs@hotmail.com", :password => "ImaPup45")
+                entry = Entry.create(:date => 2020-14-06, :weeks => 5, :notes => "testing this bad boy out", :user_id => user.id)
+
+                visit '/login'
+                fill_in(:username, :with => "hotdoggy") 
+                fill_in(:password, :with => "ImaPup45")
+                click_button 'Log In'
+                visit "/entries/#{entry.id}/edit"
+
+                click_button "Delete Entry"
+
+                expect(Entry.find_by(:notes => "testing this bad boy out")).to be(nil)
+                expect(page.status_code).to eq(200)
+            end 
+
+            it "does not let a user delete another user's entry" do 
+                user1 = User.create(:username => "hotdoggy", :email => "sausagedogs@hotmail.com", :password => "ImaPup45")
+                entry1 = Entry.create(:date => 2020-14-06, :weeks => 5, :notes => "testing", :user_id => user1.id)
+                
+                user2 = User.create(:username => "lovemyweasel", :email => "scraphoundsunite@gmail.com", :password => "PeetboBeet123")
+                entry2 = Entry.create(:date => 2020-19-06, :weeks => 3, :notes => "my mom is pregnant! woof!", :user_id => user2.id)
+    
+                visit '/login'
+                fill_in(:username, :with => "hotdoggy") 
+                fill_in(:password, :with => "ImaPup45")
+                click_button 'Log In'
+                visit "/entries/#{entry2.id}/edit"
+
+                expect(page.current_path).to eq('/account')
+            end 
+        end 
+
+        context "logged out" do 
+            it 'does not let a user delete an entry if logged out' do 
+                user = User.create(:username => "hotdoggy", :email => "sausagedogs@hotmail.com", :password => "ImaPup45")
+                entry = Entry.create(:date => 2020-14-06, :weeks => 5, :notes => "testing this bad boy out", :user_id => user.id)
+                visit "/entries/#{entry.id}"
+                expect(page.current_path).to eq("/login")
             end 
         end 
     end 

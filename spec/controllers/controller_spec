@@ -42,19 +42,20 @@ View Entry
 [X] does not show entry if user is not logged in 
 [X] does not allow user to access anyone else's entries  
 Edit Entry 
-- allows user to edit entry if logged in
-- does not allow user to edit entry if not logged in 
-- does not user to edit anyone else's entry
+[X] allows user to edit entry if logged in
+[X] does not allow user to edit entry if not logged in 
+[X] does not user to edit anyone else's entry
+[X] does not let a user write a blank entry
 New Entry
-- allows user to view new entry form if logged in
-- does not allow user to write new entry if logged out 
-- lets user create a new entry 
-- does not let user write an entry without a date, # of weeks
+[X] allows user to view new entry form if logged in
+[X] does not allow user to write new entry if logged out 
+[X] lets user create a new entry 
+[X] does not let user write an entry without a date, # of weeks
 - don't let user write a symptom that already exists
-- redirects to entry page after completion 
+[X] redirects to entry page after completion 
 Delete Entry 
-- lets a user delete own entry if logged in 
-- does not let a user delete entry if logged out 
+[X] lets a user delete own entry if logged in 
+[X] does not let a user delete entry if logged out 
 
 List of Messages 
 - lets a user view list of messages if logged in 
