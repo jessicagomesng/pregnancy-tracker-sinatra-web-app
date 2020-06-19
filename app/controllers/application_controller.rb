@@ -1,4 +1,5 @@
 class ApplicationController < Sinatra::Base 
+
     configure do
         set :public_view, 'public' 
         set :views, 'app/views'
@@ -15,6 +16,10 @@ class ApplicationController < Sinatra::Base
     end 
 
     helpers do 
+        def flash_types
+            [:success, :notice, :warning, :error]
+        end
+
         def logged_in?
             !!current_user
         end 

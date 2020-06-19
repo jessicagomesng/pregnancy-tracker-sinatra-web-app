@@ -1,5 +1,7 @@
+require 'rack-flash'
+
 class EntriesController < ApplicationController 
-    use Rack::Flash 
+    use Rack::Flash, :sweep => true
 
     get '/entries' do 
         if logged_in?
@@ -7,7 +9,7 @@ class EntriesController < ApplicationController
 
             erb :'/entries/index'
         else 
-            #flash message -- you must be logged in to do that!
+            flash[:notice] = "You must be logged in to do that!"
             redirect '/login'
         end 
     end 
@@ -23,14 +25,14 @@ class EntriesController < ApplicationController
 
     post '/entries' do
         if params[:entry][:date] == "" || params[:entry][:weeks] == ""
-            flash[:message] = "You must include a date and how many weeks you are!" 
+            flash[:error] = "You must include a date and how many weeks you are!" 
             redirect '/entries/new'
         else 
             @entry = Entry.new 
 
             if params["new_symptom"] != ""
                 if Symptom.name_array.include?(params["new_symptom"].downcase) 
-                    flash[:message] = "Sorry, you cannot add an existing symptom to the database. To add that symptom, simply edit your entry and select the appropriate symptom."
+                    flash[:error] = "Sorry, you cannot add an existing symptom to the database. To add that symptom, simply edit your entry and select the appropriate symptom."
                 else 
                     @entry.symptoms << Symptom.create(:name => params["new_symptom"])
                 end 
@@ -50,7 +52,8 @@ class EntriesController < ApplicationController
 
             @entry.save 
             current_user.entries << @entry 
-
+            
+            flash[:success] = "Entry created."
             redirect "/entries/#{@entry.id}"
         end 
     end 

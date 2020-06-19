@@ -33,6 +33,14 @@
   </head>
   <body>
 
+  <% if flash %>
+    <% flash_types.select{ |kind| flash.has?(kind) }.each do |kind| %>
+    <div class="flash <%= kind %>">
+      <%= flash[kind] %>
+    </div>
+    <% end %>
+  <% end %> 
+
     <div class="container">
       <h1>Welcome to the Pregnancy Tracker!</h1>
 
