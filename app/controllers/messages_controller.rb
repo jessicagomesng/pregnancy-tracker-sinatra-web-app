@@ -86,10 +86,14 @@ class MessagesController < ApplicationController
     delete '/messages/:id' do 
         @message = Message.find_by_id(params[:id])
 
-        if logged_in? && @message.user == current_user 
-            @message.delete
-            flash[:success] - "Message deleted."
-            redirect '/messages'
+        if logged_in? 
+            if @message.user == current_user 
+                @message.delete
+                flash[:success] = "Message deleted."
+                redirect '/messages'
+            else 
+                redirect '/account'
+            end 
         else
             redirect '/login'
         end 

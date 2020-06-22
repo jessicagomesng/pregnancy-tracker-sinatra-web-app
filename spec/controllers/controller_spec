@@ -58,24 +58,29 @@ Delete Entry
 [X] does not let a user delete entry if logged out 
 
 List of Messages 
-- lets a user view list of messages if logged in 
-- does not let a user view list of messages if not logged in
+[X] lets a user view list of messages if logged in 
+[X] does not let a user view list of messages if not logged in
 Create Messages
 - does not allow user to create message from another username
-- lets user view new message form if logged in 
-- lets user create new message if logged in
-- does not allow user to create a blank message
-- does not let user view new message form if logged out 
+[X] lets user view new message form if logged in 
+[X] lets user create new message if logged in
+[X] does not allow user to create a blank message
+[X] does not let user view new message form if logged out 
 View Message
-- displays a single message
-- does not let a user view a message if not logged in
+[X] displays a single message
+[X] does not let a user view a message that doesn't exist
+[X] does not let a user view a message if not logged in
 Edit Message
-- lets a user edit a message if logged in 
-- does not allow a user to edit a message if not logged in (can I find a way to only show these buttons on your own tweets?)
+[X] lets a user edit a message if logged in
+[X] shows edit links if the post is their own 
+[X] does not allow a user to edit a message if not logged in (can I find a way to only show these buttons on your own tweets?)
 - does not allow a user to edit a message that isn't her own
-- lets a user to view edit form if logged in & it's their own message
-- does not let a user edit a form with blank content
-- does not allow a user to edit a message if logged out
+[X] lets a user to view edit form if logged in & it's their own message
+[X] does not let a user edit a form with blank content
+[X] does not allow a user to edit a message if logged out
+Delete Message 
+[X] lets a user delete own message if logged in
+[X] does not let a user delete message if logged out
 User Profile 
 - lets a user view other user profiles if logged in
 - does not let a user view other profiles if not logged in 
@@ -85,10 +90,7 @@ List of Users
 - lets a user view list of users if logged in 
 - does not let a user view list of messages if not logged in 
 - does not display sensitive information 
-Delete Message 
-- lets a user delete own message if logged in
-- does not let a user delete message if logged in
-- does not let a user delete a message they did not create
+
 
 Create Own Symptom 
 - There should be prewritten symptoms that a user can select from
@@ -121,3 +123,4 @@ My database should add this info automatically
 
 Add flash messages 
 Add method override to patch metods 
+Should I add due date? 

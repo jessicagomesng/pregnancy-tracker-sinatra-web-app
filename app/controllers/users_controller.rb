@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 
     post '/signup' do
         if params[:email] == "" || params[:password] == "" || params[:username] == ""
-            flash[:error] = "You nust include a username, email, and password." 
+            flash[:error] = "You must include a username, email, and password." 
             redirect '/signup'
         else 
             if all_usernames.include?(params[:username]) || all_emails.include?(params[:email])
@@ -27,7 +27,7 @@ class UsersController < ApplicationController
             end 
         end  
     end 
-    
+
     get '/login' do 
         #contains a link to forgotten password
         if logged_in?
@@ -61,7 +61,6 @@ class UsersController < ApplicationController
     get '/logout' do 
         if logged_in? 
             session.clear 
-            flash[:success] = "Logout successful."
             redirect '/login'
         else 
             flash[:notice] = "You must be logged in to do that!"

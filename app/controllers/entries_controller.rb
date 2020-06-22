@@ -66,7 +66,7 @@ class EntriesController < ApplicationController
             if @entry && current_user.id == @entry.user_id 
                 erb :'/entries/show'
             else 
-                flash[:error] = "Sorry, you do not have permissions to view that entry."
+                flash[:error] = "Sorry, you do not have permissions to do that."
                 redirect '/account'
             end 
         else 
