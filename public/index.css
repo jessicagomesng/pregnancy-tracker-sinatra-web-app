@@ -1,8 +1,95 @@
-p {
-    font-family: Helvetica, Arial, sans-serif;
+
+body {
+  background-color: #ECDEEB;
+  font-family: arial, serif;
 }
 
 h1 {
-    font-family: Helvetica, Arial, sans-serif;
-    color: blue;
+  letter-spacing: -1px;
+  font-size: 40px;
+}
+
+a {
+  color: black;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+}
+
+div.topnav {
+    background-color: #FFF;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    max-width: 40%;
+}
+
+div.topnav a {
+    text-decoration: none;
+    padding: 5px;
+}
+
+a:hover {
+  background-color: #FFF;
+  color: #736C73; 
+}
+
+#message_username { 
+  font-size: 13px;
+}
+
+#message_date {
+  font-style: italic;
+  font-size: 13px;
+}
+
+#message_content { 
+  font-size: 18px;
+}
+
+.boxed {
+  border: 1px solid black;
+  padding: 5px;
+  width: 40%;
+  text-align: center;
+  background-color: #FFF;
+}
+
+input[type="submit"] { 
+  background-color: #FFF;
+  border: 0.6px solid black;
+  padding: 5px;
+}
+
+.warning {
+  font-style: italic;
+  font-size: 11px;
+}
+
+.tooltip { 
+  font-size: 13px;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #D687D6;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 6px;
+  font-style: italic;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.tooltip .tooltiptext a {
+  font-size: 13px;
+  font-style: normal;
 }

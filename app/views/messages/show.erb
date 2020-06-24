@@ -1,11 +1,11 @@
-Message by <%= @message.user.username %><br>
-Posted on <%= @message.date_posted %><br>
-<%= @message.content %> 
+<br><br><div class="boxed">
+    <span id="message_username">Message by <%= @message.user.username %></span><br>
+    <span id="message_date">&nbsp;&nbsp; Posted on <%= @message.date_posted %></span><br><br>
+    <span id="message_content"><%= @message.content %></span>
 
-<br> 
+    <br><br>
+</div>
 
 <% if @message.user == current_user %>
 <a href="/messages/<%= @message.id %>/edit">Edit or Delete</a> 
-<% end %><br> 
-
-<a href="/account">Account</a> or <a href="/messages">Messageboard</a>
+<% end %><br><br>

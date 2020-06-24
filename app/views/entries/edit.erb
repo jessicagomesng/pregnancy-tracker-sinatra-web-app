@@ -33,7 +33,7 @@
 
   <form action="/entries/<%= @entry.id %>" method="POST">
   <input type="hidden" id="hidden" name="_method" value="DELETE">
-  <br>or <input type="submit" value="Delete Entry"> 
-  </form> 
+  <br>or <input type="submit" value="Delete Entry"> <span class="warning">This action cannot be undone.</span> 
+  </form><br>
 
-<a href="/entries/<%= @entry.id %>">Cancel</a> or <a href="/account">Account</a>
+<a href="/entries/<%= @entry.id %>">Cancel</a> 

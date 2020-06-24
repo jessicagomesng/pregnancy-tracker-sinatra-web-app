@@ -2,32 +2,34 @@
 
 <form method="POST" action="/entries"> 
     <label for="date">Date:</label>
-    <input type="date" id="date" name="entry[date]" required><br><br>
+        <input type="date" id="date" name="entry[date]" required><br><br>
 
-    <label for="temperature">Temperature in &deg;C:</label> &#9432; <!-- make a tooltip here -->
-    <input type="number" step="0.01" placeholder="0.00" name="entry[temperature]"><br><br> 
+    <label for="temperature">Temperature in &deg;C:</label> 
+        <span class="tooltip">&#9432;<span class="tooltiptext">Some women choose to track their <a href="https://www.mayoclinic.org/tests-procedures/basal-body-temperature/about/pac-20393026#:~:text=Your%20basal%20body%20temperature%20is,predict%20when%20you'll%20ovulate.">Basal Body Temperature</a> (BBT) throughout their pregnancy.</span></span><!-- make a tooltip here -->
+        <input type="number" step="0.01" placeholder="0.00" name="entry[temperature]"><br><br> 
 
     <label for="weight">Weight in kg:</label>
-    <input type="number" step="0.1" placeholder="0.0" name="entry[weight]"><br><br>
+        <input type="number" step="0.1" placeholder="0.0" name="entry[weight]"><br><br>
 
-    <label for="weeks">Number of weeks:</label> &#9432; <!-- make a tooltip here -->
-    <input type="number" min="1" max="42" id="weeks" name="entry[weeks]" required><br><br> 
+    <label for="weeks">Number of weeks:</label>
+        <span class="tooltip">&#9432;<span class="tooltiptext">You can provide an estimate here if you do not know an exact figure. Please round up or down to the nearest whole number.</span></span><!-- make a tooltip here -->
+        <input type="number" min="1" max="42" id="weeks" name="entry[weeks]" required><br><br> 
 
     <label for="symptoms">Choose a symptom from the list below, or create your own:</label><br><br>
-    <% @symptoms.each do |symptom| %>
-        <input type="checkbox" id="symptom_<%= symptom.id %>" name="entry[symptom_ids][]" value="<%= symptom.id %>"><%= symptom.name.capitalize %></input><br>
-    <% end %> 
+        <% @symptoms.each do |symptom| %>
+            <input type="checkbox" id="symptom_<%= symptom.id %>" name="entry[symptom_ids][]" value="<%= symptom.id %>"><%= symptom.name.capitalize %></input><br>
+        <% end %><br>
 
     <label for="new_symptom">New Symptom:</label>
-    <input type="text" id="new_symptom" name="new_symptom"><br>
+        <input type="text" id="new_symptom" name="new_symptom"><br><br>
     
     <label for="notes">Notes:</label> 
-    <textarea id="notes" name="entry[notes]" rows="4" cols="50" placeholder="You can write about any doctor's visits, exercise performed, food eaten, or anything else you want to take note of here!"></textarea><br><br> 
+        <textarea id="notes" name="entry[notes]" rows="4" cols="50" placeholder="You can write about any doctor's visits, exercise performed, food eaten, or anything else you want to take note of here!"></textarea><br><br> 
 
     <label for="to_dos">To Do:</label> 
-    <textarea id="to_dos" name="entry[to_dos]" rows="4" cols="50" placeholder="You can write about any tasks you need to get done here."></textarea><br><br>  
+        <textarea id="to_dos" name="entry[to_dos]" rows="4" cols="50" placeholder="You can write about any tasks you need to get done here."></textarea><br><br>  
 
-    <input type="submit" value="Create New Entry">
+        <input type="submit" value="Create New Entry">
 </form> 
 <br> 
-<a href="/account">Go Back</a> 
+<a href="/entries">Cancel</a> 

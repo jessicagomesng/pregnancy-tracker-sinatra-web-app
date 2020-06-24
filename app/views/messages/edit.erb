@@ -4,13 +4,15 @@
 <input type="hidden" id="hidden" name="_method" value="PATCH">
     <textarea id="new_message" name="content" rows="4" cols="50" maxlength="300"><%= @message.content %></textarea><br><br> 
 <p>Remember that any message you create can be viewed on the messageboard by all other users.</p>
-<input type="submit" value="Edit Message"> or<br><br>
+<input type="submit" value="Edit Message"> or <br><br>
 </form> 
 
 <form action="/messages/<%= @message.id %>" method="POST">
 <input type="hidden" id="hidden" name="_method" value="DELETE"> 
-<input type="submit" value="Delete Message"> <p>This action cannot be undone.</p> 
+<input type="submit" value="Delete Message"> <span class="warning">This action cannot be undone.</span> 
 </form> 
 
 
-</form> 
+</form><br><br>
+
+<a href="/messages/<%= @message.id %>">Cancel</a> 

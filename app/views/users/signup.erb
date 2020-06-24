@@ -1,17 +1,14 @@
 <h1>Sign Up Below:</h1> 
 <h4>Please note: your username and email must not be associated with any other accounts.</h4>
 <form method="POST" action="/signup"> 
-    <!-- add in regex matchers here -->
     <label for="email">Email:</label>
     <input type="text" id="email" name="email" required><br><br>
 
-    <p>Your username cannot contain any spaces.</a> 
     <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required><br><br>
+    <input type="text" id="username" name="username" pattern ="/^\S*$/" title="Username cannot include spaces" required><br><span class="warning">Your username cannot contain any spaces.</span><br><br>
 
-    <p>Your password must contain one capital letter, one digit, and at least six characters.</p> 
     <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required><br><br>
+    <input type="password" id="password" name="password" pattern="/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/" title="Follow the parameters to create a secure password." required><br><span class="warning">Your password must contain one uppercase and one lowercase letter, one digit, and at least six characters.</span><br><br>
 
     <input type="submit" value="Sign Up">
 </form> 

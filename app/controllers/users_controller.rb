@@ -29,7 +29,6 @@ class UsersController < ApplicationController
     end 
 
     get '/login' do 
-        #contains a link to forgotten password
         if logged_in?
             redirect "/account"
         else 

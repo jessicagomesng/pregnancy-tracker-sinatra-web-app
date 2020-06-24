@@ -2,47 +2,28 @@
 <html>
   <head>
     <title>Pregnancy e-Tracker</title>
-    <link href="<%= url('/index.css') %> rel="stylesheet" type="text/css" />
-
-    <style>
-    h1 {
-      font-family: arial, helvetica, sans-serif;
-    }
-
-    h2, h3, h4 { 
-      font-family: arial, helvetica, sans-serif; 
-    }
-
-    li {
-      font-family: arial;
-    }
-    
-    a {
-      font-family: arial;
-      color: blue;
-    }
-    
-    a:hover {
-      background-color: beige; 
-    }
-
-    a:visited {
-      color: blue;
-    }
-    </style>
+    <link href="/index.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-
-  <% if flash %>
-    <% flash_types.select{ |kind| flash.has?(kind) }.each do |kind| %>
-    <div class="flash <%= kind %>">
-      <%= flash[kind] %>
-    </div>
-    <% end %>
-  <% end %> 
+    <% if flash %>
+      <% flash_types.select{ |kind| flash.has?(kind) }.each do |kind| %>
+      <div class="flash <%= kind %>">
+        <%= flash[kind] %>
+      </div>
+      <% end %>
+    <% end %> 
 
     <div class="container">
-      <h1>Welcome to the Pregnancy Tracker!</h1>
+      <h1>Pregnancy Tracker Web App</h1>
+
+      <% if logged_in? %>
+        <div class="topnav">
+          <a href="/account">Account</a> 
+          <a href="/entries">Entries</a> 
+          <a href="/messages">Messageboard</a> 
+          <a href="/logout">Log Out</a>
+        </div><br>
+      <% end %>
 
       <%= yield %> 
     </div>

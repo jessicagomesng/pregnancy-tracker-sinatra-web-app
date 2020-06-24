@@ -1,12 +1,11 @@
 <ul>
 <h2>Messageboard</h2> 
 
-<p>Please be respectful of all other users. You can click on your message to view/edit/delete.</p> 
+<p>Please be respectful of all other users. You can click on a message to view/edit/delete.</p> 
 <% @messages.each do |message| %> 
-    <!-- italicize or change the format of this somehow so they are separate --> 
     <li><%= message.user.username %><br>
     &nbsp; &nbsp; <a href="/messages/<%= message.id %>"><%= message.content %></a></li><br>
 <% end %> 
 </ul> 
 
-<a href="/messages/new">Create New Message</a> or <a href="/account">Account</a> 
+<a href="/messages/new">Create New Message</a> 
