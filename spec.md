@@ -17,4 +17,4 @@ Confirm
 - [x] You have a large number of small Git commits - I did not commit nearly as much as I should have. I honestly completely forgot about committing because I was working on my local environment; this is definitely something that needs improvement!!
 - [x] Your commit messages are meaningful - I did try and make meaningful commits!
 - [x] You made the changes in a commit that relate to the commit message
-- [ ] You don't include changes in a commit that aren't related to the commit message
+- [x] You don't include changes in a commit that aren't related to the commit message - I honestly think this section needs a lot of work as I really didn't commit nearly as often as I should have. 
