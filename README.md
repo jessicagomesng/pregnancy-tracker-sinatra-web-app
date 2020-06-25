@@ -4,7 +4,7 @@ This is the second project in FlatIron's Software Engineering course.
 
 ## Installation & Usage
 
-To use this app, clone, run rake db:migrate, and then run shotgun. 
+To use this app, clone, run rake db:migrate, rake db:seed, and then run shotgun. 
 
 ## Running Tests
 
