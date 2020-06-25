@@ -10,7 +10,7 @@ def check_migration
     rescue ActiveRecord::PendingMigrationError
         raise ActiveRecord::PendingMigrationError.new <<-EX_MSG
         Migrations are pending. To resolve this issue, run:
-              rake db:migrate SINATRA_ENV=test
+              rake db:migrate or rake db:migrate SINATRA_ENV=test if testing.
         EX_MSG
     end  
 end

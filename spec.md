@@ -11,7 +11,7 @@ Specs:
 - [x] Ensure that users can't modify content created by other users - I have written tests and implemented conditions to make sure that a user can only edit/delete his/her content.
 - [x] Include user input validations - I have used regex expressions to validate user input. I have also included conditions to ensure blank entries/messages cannot be created.
 - [x] BONUS - not required - Display validation failures to user with error message (example form URL e.g. /posts/new) - I've added in flash messages that display when something fails (or when it succeeds).
-- [ ] Your README.md includes a short description, install instructions, a contributors guide and a link to the license for your code
+- [x] Your README.md includes a short description, install instructions, a contributors guide and a link to the license for your code
 
 Confirm
 - [x] You have a large number of small Git commits - I did not commit nearly as much as I should have. I honestly completely forgot about committing because I was working on my local environment; this is definitely something that needs improvement!!
