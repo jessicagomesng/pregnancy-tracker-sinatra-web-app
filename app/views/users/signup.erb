@@ -2,10 +2,10 @@
 <h4>Please note: your username and email must not be associated with any other accounts.</h4>
 <form method="POST" action="/signup"> 
     <label for="email">Email:</label>
-    <input type="text" id="email" name="email" required><br><br>
+    <input type="text" id="email" name="email" pattern ="/\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i" required><br><br>
 
     <label for="username">Username:</label>
-    <input type="text" id="username" name="username" pattern ="/^\S*$/" title="Username cannot include spaces" required><br><span class="warning">Your username cannot contain any spaces.</span><br><br>
+    <input type="text" id="username" name="username" pattern="/^\S*$/" title="Username cannot include spaces" required><br><span class="warning">Your username cannot contain any spaces.</span><br><br>
 
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" pattern="/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/" title="Follow the parameters to create a secure password." required><br><span class="warning">Your password must contain one uppercase and one lowercase letter, one digit, and at least six characters.</span><br><br>
