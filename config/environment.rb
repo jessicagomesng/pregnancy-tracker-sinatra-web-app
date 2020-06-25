@@ -3,7 +3,6 @@ ENV["SINATRA_ENV"] ||= "development"
 require 'bundler/setup'
 Bundler.require(:default, ENV["SINATRA_ENV"])
 
-
 def check_migration
     begin  
         ActiveRecord::Migration.check_pending!
@@ -21,6 +20,3 @@ ActiveRecord::Base.establish_connection(
 )
 
 require_all 'app'
-require_all 'lib'
-
-SymptomsCreator.call
