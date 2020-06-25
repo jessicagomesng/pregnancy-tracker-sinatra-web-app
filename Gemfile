@@ -8,6 +8,7 @@ gem 'sinatra'
 gem 'activerecord', '~> 5.2.4', :require => 'active_record'
 gem 'sinatra-activerecord', :require => 'sinatra/activerecord'
 gem 'rake'
+gem "rack", ">= 2.2.3"
 gem 'require_all'
 gem 'sqlite3'
 gem 'thin'
