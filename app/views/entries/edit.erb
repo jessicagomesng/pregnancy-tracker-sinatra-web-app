@@ -16,7 +16,7 @@
 
     <label for="symptoms">Choose a symptom from the list below, or create your own:</label><br><br>
     <% @symptoms.each do |symptom| %>
-        <input type="checkbox" id="symptom_<%= symptom.id %>" name="entry[symptom_ids][]" value="<%= symptom.id %>" <%='checked' if @entry.symptoms.include?(symptom) %>"><%= symptom.name.capitalize %></input><br>
+        <input type="checkbox" id="symptom_<%= symptom.id %>" name="entry[symptom_ids][]" value="<%= symptom.id %>" <%='checked' if @entry.symptoms.include?(symptom)%>><%= symptom.name.capitalize %></input><br>
     <% end %> 
 
     <label for="new_symptom">New Symptom:</label>
