@@ -16,7 +16,7 @@ class UsersController < ApplicationController
             flash[:error] = "You must include a username, email, and password." 
             redirect '/signup'
         else 
-            if all_usernames.include?(params[:username]) || all_emails.include?(params[:email])
+            if User.all_usernames.include?(params[:username]) || User.all_emails.include?(params[:email])
                 flash[:error] = "Sorry, that username and/or email already exists in our system. Please try again." 
                 redirect '/signup'
             else 

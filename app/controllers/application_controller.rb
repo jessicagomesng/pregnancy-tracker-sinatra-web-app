@@ -27,18 +27,6 @@ class ApplicationController < Sinatra::Base
         def current_user 
             @current_user = User.find_by_id(session[:user_id])
         end 
-
-        def all_usernames
-            User.all.collect do |user|
-                user.username 
-            end 
-        end 
-
-        def all_emails
-            User.all.collect do |user|
-                user.email 
-            end 
-        end
     end 
 
 end 
