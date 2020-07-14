@@ -56,7 +56,8 @@ class MessagesController < ApplicationController
         @message = Message.find_by_id(params[:id])
 
         if logged_in? 
-            if @message && @message.user == current_user
+            # if @message && @message.user == current_user
+            if @message && authorized_to_edit?(@message) 
                 erb :'/messages/edit'
             else 
                 flash[:error] = "Sorry, you do not have permissions to edit that message."
@@ -87,7 +88,7 @@ class MessagesController < ApplicationController
         @message = Message.find_by_id(params[:id])
 
         if logged_in? 
-            if @message.user == current_user 
+            if authorized_to_edit?(@message)
                 @message.delete
                 flash[:success] = "Message deleted."
                 redirect '/messages'

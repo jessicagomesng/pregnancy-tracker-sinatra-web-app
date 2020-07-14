@@ -63,7 +63,7 @@ class EntriesController < ApplicationController
         @entry = Entry.find_by_id(params[:id])
 
         if logged_in?
-            if @entry && current_user.id == @entry.user_id 
+            if @entry && authorized_to_edit?(@entry)
                 erb :'/entries/show'
             else 
                 flash[:error] = "Sorry, you do not have permissions to do that."
@@ -80,7 +80,7 @@ class EntriesController < ApplicationController
         @entry = Entry.find_by_id(params[:id])
 
         if logged_in?
-            if @entry && current_user.id == @entry.user_id 
+            if @entry && authorized_to_edit?(@entry)
                 erb :'/entries/edit'
             else 
                 flash[:error] = "Sorry, you do not have permissions to do that."
@@ -131,7 +131,7 @@ class EntriesController < ApplicationController
     delete '/entries/:id' do 
         @entry = Entry.find_by_id(params[:id])
         
-        if logged_in? && @entry.user_id == session[:user_id]
+        if logged_in? && authorized_to_edit?(@entry)
             @entry.delete
             flash[:success] = "Entry deleted."
             redirect "/entries"
